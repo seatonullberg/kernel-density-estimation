@@ -11,7 +11,7 @@ fn main() {
     ];
     let grid: Vec<f64> = (0..101).into_iter().map(|x| x as f64 * 0.1).collect();
     let kernel = Kernel::Epanechnikov;
-    let bandwidth = Bandwidth::Silverman;
+    let bandwidth = Bandwidth::Scott;
     let samples = samples.as_slice();
     let grid = grid.as_slice();
     let res = pdf(samples, grid, kernel, bandwidth);

@@ -2,6 +2,7 @@ use crate::internal::{interquartile_range, variance};
 
 pub enum Bandwidth {
     Custom(Box<dyn Fn(&[f64]) -> f64>),
+    Scott,
     Silverman,
 }
 
@@ -10,6 +11,12 @@ impl Bandwidth {
         match self {
             Bandwidth::Custom(func) => {
                 func(data)
+            },
+            Bandwidth::Scott => {
+                let prefactor = 1.06;
+                let n = data.len() as f64;
+                let var = variance(data);
+                (prefactor * f64::sqrt(var)) / n.powf(1.0 / 5.0)
             },
             Bandwidth::Silverman => {
                 let var = variance(data);
@@ -35,10 +42,18 @@ mod tests {
     use approx::*;
 
     #[test]
+    fn scott() {
+        let data = vec![1.0, 1.5, 2.0, 2.5, 3.0];
+        let bw = Bandwidth::Scott;
+        let res = bw.bandwidth(data.as_slice());
+        assert_relative_eq!(res, 0.60736, epsilon=1.0e-5);
+    }
+
+    #[test]
     fn silverman() {
-        let mut data = vec![1.0, 1.5, 2.0, 2.5, 3.0];
+        let data = vec![1.0, 1.5, 2.0, 2.5, 3.0];
         let bw = Bandwidth::Silverman;
-        let res = bw.bandwidth(&mut data);
+        let res = bw.bandwidth(data.as_slice());
         assert_relative_eq!(res, 0.51568, epsilon = 1.0e-5);
     }
 }
