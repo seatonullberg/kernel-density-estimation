@@ -1,14 +1,16 @@
 use crate::internal::{interquartile_range, variance};
 
 pub enum Bandwidth {
-    Custom(f64),
+    Custom(Box<dyn Fn(&[f64]) -> f64>),
     Silverman,
 }
 
 impl Bandwidth {
     pub fn bandwidth(&self, data: &[f64]) -> f64 {
         match self {
-            Bandwidth::Custom(h) => *h,
+            Bandwidth::Custom(func) => {
+                func(data)
+            },
             Bandwidth::Silverman => {
                 let var = variance(data);
                 let var_term = f64::sqrt(var);

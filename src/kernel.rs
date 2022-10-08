@@ -1,6 +1,7 @@
 use std::f64::consts::PI;
 
 pub enum Kernel {
+    Custom(Box<dyn Fn(f64) -> f64>),
     Normal,
     Epanechnikov,
 }
@@ -8,6 +9,9 @@ pub enum Kernel {
 impl Kernel {
     pub fn eval(&self, x: f64) -> f64 {
         match self {
+            Kernel::Custom(func) => {
+                func(x)
+            },
             Kernel::Normal => {
                 let frac_sqrt2pi = 1.0 / f64::sqrt(2.0 * PI);
                 let exponent = (-1.0 / 2.0) * x.powi(2);
