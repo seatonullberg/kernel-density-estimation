@@ -18,11 +18,21 @@ pub(crate) fn interquartile_range(data: &[f64]) -> f64 {
     quantile(data, 0.75) - quantile(data, 0.25)
 }
 
+pub(crate) fn cumsum(data: &[f64]) -> Vec<f64> {
+    let mut res: Vec<f64> = vec![0.0; data.len()];
+    let mut sum: f64;
+    for i in 0..data.len() {
+        sum = data[..i+1].iter().sum();
+        res[i] = sum;
+    }
+    res
+}
+
 #[cfg(test)]
 mod tests {
     use approx::*;
 
-    use super::{interquartile_range, quantile, variance};
+    use super::{interquartile_range, quantile, variance, cumsum};
 
     #[test]
     fn test_variance() {
@@ -43,5 +53,16 @@ mod tests {
         let data = vec![1.0, 2.0, 3.0, 4.0, 5.0];
         let res = interquartile_range(data.as_slice());
         assert_relative_eq!(res, 3.0);
+    }
+
+    #[test]
+    fn test_cumsum() {
+        let data = vec![1.0, 2.0, 3.0, 4.0, 5.0];
+        let res = cumsum(data.as_slice());
+        assert_eq!(res[0], 1.0);
+        assert_eq!(res[1], 3.0);
+        assert_eq!(res[2], 6.0);
+        assert_eq!(res[3], 10.0);
+        assert_eq!(res[4], 15.0);
     }
 }

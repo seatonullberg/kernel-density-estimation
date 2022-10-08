@@ -3,6 +3,7 @@ mod internal;
 pub mod kernel;
 
 use bandwidth::Bandwidth;
+use internal::cumsum;
 use kernel::Kernel;
 
 pub struct KernelDensityEstimator {
@@ -31,6 +32,17 @@ impl KernelDensityEstimator {
             }
         }
         res.iter().map(|x| x * prefactor).collect()
+    }
+
+    pub fn cdf<B, K>(&self, dataset: Vec<f64>, bandwidth: B, kernel: K) -> Vec<f64>
+    where
+        B: Bandwidth,
+        K: Kernel,
+    {
+        let pdf = self.pdf(dataset, bandwidth, kernel);
+        let cdf = cumsum(pdf.as_slice());
+        let cdf_max = cdf[cdf.len() - 1];
+        cdf.iter().map(|x| x / cdf_max).collect()
     }
 }
 

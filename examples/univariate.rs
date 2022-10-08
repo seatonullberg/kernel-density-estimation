@@ -12,15 +12,22 @@ fn main() {
 
     let kde = KernelDensityEstimator::new(samples);
 
-    let dataset: Vec<f64> = (0..101).into_iter().map(|x| x as f64 * 0.1).collect();
-    let x2 = dataset.clone();
-    let y2 = kde.pdf(dataset, Scott, Epanechnikov);
+    let pdf_dataset: Vec<f64> = (0..101).into_iter().map(|x| x as f64 * 0.1).collect();
+    let cdf_dataset = pdf_dataset.clone();
+
+    let x2 = pdf_dataset.clone();
+    let y2 = kde.pdf(pdf_dataset, Scott, Epanechnikov);
+    
+    let x3 = cdf_dataset.clone();
+    let y3 = kde.cdf(cdf_dataset, Scott, Epanechnikov);
 
     let trace1 = Scatter::new(x1, y1).mode(Mode::Markers).name("Data");
     let trace2 = Scatter::new(x2, y2).mode(Mode::Lines).name("PDF");
+    let trace3 = Scatter::new(x3, y3).mode(Mode::Lines).name("CDF");
 
     let mut plot = Plot::new();
     plot.add_trace(trace1);
     plot.add_trace(trace2);
+    plot.add_trace(trace3);
     plot.show();
 }

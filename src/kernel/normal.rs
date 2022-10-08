@@ -5,10 +5,6 @@ use std::f64::consts::PI;
 pub struct Normal;
 
 impl Kernel for Normal {
-    fn cdf(&self, x: f64) -> f64 {
-        unimplemented!();
-    }
-
     fn pdf(&self, x: f64) -> f64 {
         let frac_sqrt2pi = 1.0 / f64::sqrt(2.0 * PI);
         let exponent = (-1.0 / 2.0) * x.powi(2);

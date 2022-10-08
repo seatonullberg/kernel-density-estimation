@@ -3,10 +3,6 @@ use crate::kernel::Kernel;
 pub struct Epanechnikov;
 
 impl Kernel for Epanechnikov {
-    fn cdf(&self, x: f64) -> f64 {
-        unimplemented!()
-    }
-
     fn pdf(&self, x: f64) -> f64 {
         let term = 1.0 - x.powi(2);
         if term > 0.0 {
