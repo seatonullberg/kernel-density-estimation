@@ -3,8 +3,8 @@ mod internal;
 pub mod kernel;
 
 pub fn pdf(
-    samples: &mut [f64],
-    grid: &mut [f64],
+    samples: &[f64],
+    grid: &[f64],
     kernel: kernel::Kernel,
     bandwidth: bandwidth::Bandwidth,
 ) -> Vec<f64> {
