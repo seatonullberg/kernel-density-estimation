@@ -1,0 +1,24 @@
+[package]
+name = "mvkde"
+version = "0.1.0"
+edition = "2021"
+authors = ["Seaton Ullberg <seatonullberg@gmail.com>"]
+repository = "https://github.com/seatonullberg/mvkde"
+description = "Multivariate Kernel Density Estimation in Rust"
+license = "MIT"
+keywords = [
+    "kernel-density-estimation",
+    "probability-density-function",
+    "non-parametric",
+]
+categories = [
+    "algorithms",
+    "mathematics",
+]
+
+[dependencies]
+fastrand = "1.8"
+
+[dev-dependencies]
+approx = "0.5"
+plotly = "0.8"
