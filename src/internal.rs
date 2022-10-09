@@ -22,7 +22,7 @@ pub(crate) fn cumsum(data: &[f64]) -> Vec<f64> {
     let mut res: Vec<f64> = vec![0.0; data.len()];
     let mut sum: f64;
     for i in 0..data.len() {
-        sum = data[..i+1].iter().sum();
+        sum = data[..i + 1].iter().sum();
         res[i] = sum;
     }
     res
@@ -32,7 +32,7 @@ pub(crate) fn cumsum(data: &[f64]) -> Vec<f64> {
 mod tests {
     use approx::*;
 
-    use super::{interquartile_range, quantile, variance, cumsum};
+    use super::{cumsum, interquartile_range, quantile, variance};
 
     #[test]
     fn test_variance() {
