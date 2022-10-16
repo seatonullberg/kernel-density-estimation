@@ -1,2 +1,3 @@
-# mvkde
-Multivariate Kernel Density Estimation in Rust
+# kernel-density-estimation
+
+Kernel Density Estimation in Rust
