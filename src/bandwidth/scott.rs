@@ -1,6 +1,9 @@
+//! Scott's rule for bandwidth selection.
+
 use crate::bandwidth::Bandwidth;
 use crate::internal::{variance, Float};
 
+/// Scott's rule for bandwidth selection.
 pub struct Scott;
 
 impl Bandwidth for Scott {

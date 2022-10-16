@@ -1,6 +1,9 @@
+//! Epanechnikov kernel function.
+
 use crate::internal::Float;
 use crate::kernel::Kernel;
 
+/// Epanechnikov kernel function.
 pub struct Epanechnikov;
 
 impl Kernel for Epanechnikov {

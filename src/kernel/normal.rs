@@ -1,3 +1,5 @@
+//! Normal (Gaussian) kernel function.
+
 use crate::internal::Float;
 use crate::kernel::Kernel;
 
@@ -6,6 +8,7 @@ use std::f32::consts::PI;
 #[cfg(feature = "f64")]
 use std::f64::consts::PI;
 
+/// Normal (Gaussian) kernel function.
 pub struct Normal;
 
 impl Kernel for Normal {

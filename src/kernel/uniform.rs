@@ -1,6 +1,9 @@
+//! Uniform kernel function.
+
 use crate::internal::Float;
 use crate::kernel::Kernel;
 
+/// Uniform kernel function.
 pub struct Uniform;
 
 impl Kernel for Uniform {

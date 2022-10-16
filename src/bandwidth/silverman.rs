@@ -1,5 +1,9 @@
+//! Silverman's rule for bandwidth selection.
+
 use crate::bandwidth::Bandwidth;
 use crate::internal::{interquartile_range, variance, Float};
+
+/// Silverman's rule for bandwidth selection.
 pub struct Silverman;
 
 impl Bandwidth for Silverman {
