@@ -7,7 +7,7 @@ repository = "https://github.com/seatonullberg/kernel-density-estimation"
 description = "Kernel Density Estimation in Rust"
 license = "MIT"
 keywords = [
-    "probability-density-function",
+    "probability-density",
     "non-parametric",
 ]
 categories = [
