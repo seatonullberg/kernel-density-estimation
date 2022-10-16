@@ -1,14 +1,15 @@
+use crate::internal::Float;
 use crate::kernel::Kernel;
 
 pub struct Epanechnikov;
 
 impl Kernel for Epanechnikov {
-    fn pdf(&self, x: f64) -> f64 {
+    fn pdf(&self, x: Float) -> Float {
         let term = 1.0 - x.powi(2);
         if term > 0.0 {
-            return (3.0 / 4.0) * term;
+            (3.0 / 4.0) * term
         } else {
-            return 0.0;
+            0.0
         }
     }
 }
@@ -21,20 +22,18 @@ mod tests {
 
     #[test]
     fn epanechnikov() {
-        let mut x: f64;
-        let mut res: f64;
         let kernel = Epanechnikov;
 
-        x = 0.0;
-        res = kernel.pdf(x);
+        let x = 0.0;
+        let res = kernel.pdf(x);
         assert_relative_eq!(res, 0.75);
 
-        x = -1.0;
-        res = kernel.pdf(x);
+        let x = -1.0;
+        let res = kernel.pdf(x);
         assert_relative_eq!(res, 0.0);
 
-        x = 1.0;
-        res = kernel.pdf(x);
+        let x = 1.0;
+        let res = kernel.pdf(x);
         assert_relative_eq!(res, 0.0);
     }
 }

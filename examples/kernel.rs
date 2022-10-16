@@ -1,22 +1,22 @@
-use mvkde::prelude::*;
+use kernel_density_estimation::prelude::*;
 
 use plotly::common::Mode;
 use plotly::{Plot, Scatter};
 
 fn main() {
-    let observations: Vec<f64> = vec![1.0, 1.2, 1.4, 1.6, 3.0, 3.4, 3.8];
+    let observations: Vec<f32> = vec![1.0, 1.2, 1.4, 1.6, 3.0, 3.4, 3.8];
     let x1 = observations.clone();
     let y1 = vec![0.0; observations.len()];
 
-    let bandwidth = Box::new(|_: &[f64]| 1.0);
+    let bandwidth = Box::new(|_: &[f32]| 1.0);
 
     let kde1 = KernelDensityEstimator::new(observations.clone(), &bandwidth, Epanechnikov);
     let kde2 = KernelDensityEstimator::new(observations.clone(), &bandwidth, Normal);
     let kde3 = KernelDensityEstimator::new(observations.clone(), &bandwidth, Uniform);
 
-    let dataset: Vec<f64> = (0..101)
+    let dataset: Vec<f32> = (0..101)
         .into_iter()
-        .map(|x| x as f64 * (5. / 100.))
+        .map(|x| x as f32 * (5. / 100.))
         .collect();
 
     let x2 = dataset.clone();

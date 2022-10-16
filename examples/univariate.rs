@@ -1,11 +1,11 @@
-use mvkde::prelude::*;
+use kernel_density_estimation::prelude::*;
 
 use plotly::color::NamedColor;
 use plotly::common::{Marker, Mode};
 use plotly::{Histogram, Plot, Scatter};
 
 fn main() {
-    let observations: Vec<f64> = vec![
+    let observations: Vec<f32> = vec![
         0.9, 1.0, 1.1, 4.8, 4.9, 5.0, 5.1, 5.2, 8.25, 8.5, 8.75, 9.0, 9.25, 9.5, 9.75,
     ];
     let x1 = observations.clone();
@@ -15,7 +15,7 @@ fn main() {
     let kernel = Epanechnikov;
     let kde = KernelDensityEstimator::new(observations, bandwidth, kernel);
 
-    let pdf_dataset: Vec<f64> = (0..101).into_iter().map(|x| x as f64 * 0.1).collect();
+    let pdf_dataset: Vec<f32> = (0..101).into_iter().map(|x| x as f32 * 0.1).collect();
     let cdf_dataset = pdf_dataset.clone();
     let sample_dataset = cdf_dataset.clone();
 

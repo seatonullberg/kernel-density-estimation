@@ -1,15 +1,17 @@
 pub mod scott;
 pub mod silverman;
 
+use crate::internal::Float;
+
 pub trait Bandwidth {
-    fn bandwidth(&self, data: &[f64]) -> f64;
+    fn bandwidth(&self, data: &[Float]) -> Float;
 }
 
 impl<T> Bandwidth for T
 where
-    T: Fn(&[f64]) -> f64,
+    T: Fn(&[Float]) -> Float,
 {
-    fn bandwidth(&self, data: &[f64]) -> f64 {
+    fn bandwidth(&self, data: &[Float]) -> Float {
         self(data)
     }
 }

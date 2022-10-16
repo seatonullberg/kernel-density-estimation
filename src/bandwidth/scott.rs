@@ -1,14 +1,14 @@
 use crate::bandwidth::Bandwidth;
-use crate::internal::variance;
+use crate::internal::{variance, Float};
 
 pub struct Scott;
 
 impl Bandwidth for Scott {
-    fn bandwidth(&self, data: &[f64]) -> f64 {
+    fn bandwidth(&self, data: &[Float]) -> Float {
         let prefactor = 1.06;
-        let n = data.len() as f64;
+        let n = data.len() as Float;
         let var = variance(data);
-        (prefactor * f64::sqrt(var)) / n.powf(1. / 5.)
+        (prefactor * Float::sqrt(var)) / n.powf(1. / 5.)
     }
 }
 
@@ -20,7 +20,7 @@ mod tests {
     #[test]
     fn scott() {
         let data = vec![1.0, 1.5, 2.0, 2.5, 3.0];
-        let res = Scott.bandwidth(data.as_slice());
+        let res = Scott.bandwidth(&data);
         assert_relative_eq!(res, 0.60736, epsilon = 1.0e-5);
     }
 }
