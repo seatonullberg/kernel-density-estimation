@@ -4,6 +4,7 @@ use crate::internal::Float;
 use crate::kernel::Kernel;
 
 /// Uniform kernel function.
+#[derive(Clone, Copy, Debug)]
 pub struct Uniform;
 
 impl Kernel for Uniform {

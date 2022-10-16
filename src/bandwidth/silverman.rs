@@ -4,6 +4,7 @@ use crate::bandwidth::Bandwidth;
 use crate::internal::{interquartile_range, variance, Float};
 
 /// Silverman's rule for bandwidth selection.
+#[derive(Clone, Copy, Debug)]
 pub struct Silverman;
 
 impl Bandwidth for Silverman {

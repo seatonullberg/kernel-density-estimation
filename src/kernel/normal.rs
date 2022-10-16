@@ -9,6 +9,7 @@ use std::f32::consts::PI;
 use std::f64::consts::PI;
 
 /// Normal (Gaussian) kernel function.
+#[derive(Clone, Copy, Debug)]
 pub struct Normal;
 
 impl Kernel for Normal {

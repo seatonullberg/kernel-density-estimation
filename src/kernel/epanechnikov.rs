@@ -4,6 +4,7 @@ use crate::internal::Float;
 use crate::kernel::Kernel;
 
 /// Epanechnikov kernel function.
+#[derive(Clone, Copy, Debug)]
 pub struct Epanechnikov;
 
 impl Kernel for Epanechnikov {

@@ -23,6 +23,7 @@ use crate::internal::{cumsum, Float};
 use crate::kernel::Kernel;
 
 /// Representation of a kernel density estimate with custom bandwith selector and kernel function.
+#[derive(Clone, Debug)]
 pub struct KernelDensityEstimator<B, K> {
     observations: Vec<Float>,
     bandwidth: B,
