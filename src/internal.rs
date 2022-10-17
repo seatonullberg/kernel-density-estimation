@@ -4,6 +4,8 @@ pub(crate) type Float = f64;
 #[cfg(not(feature = "f64"))]
 pub(crate) type Float = f32;
 
+pub trait Sealed {}
+
 pub(crate) fn variance(data: &[Float]) -> Float {
     let n = data.len() as Float;
     let mean = data.iter().sum::<Float>() / n;
