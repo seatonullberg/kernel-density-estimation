@@ -18,6 +18,7 @@ fn main() {
     let kde1 = KernelDensityEstimator::new(observations.clone(), &bandwidth, Epanechnikov);
     let kde2 = KernelDensityEstimator::new(observations.clone(), &bandwidth, Normal);
     let kde3 = KernelDensityEstimator::new(observations.clone(), &bandwidth, Uniform);
+    let kde4 = KernelDensityEstimator::new(observations.clone(), &bandwidth, Triangular);
 
     // Create a grid of points to evaluate each KDE on.
     let dataset: Vec<f32> = (0..101)
@@ -32,12 +33,15 @@ fn main() {
     let y3 = kde2.pdf(&dataset);
     let x4 = dataset.clone();
     let y4 = kde3.pdf(&dataset);
+    let x5 = dataset.clone();
+    let y5 = kde4.pdf(&dataset);
 
     // Plot the observations and each of the PDFs.
     let trace1 = Scatter::new(x1, y1).mode(Mode::Markers).name("Data");
     let trace2 = Scatter::new(x2, y2).mode(Mode::Lines).name("Epanechnikov");
     let trace3 = Scatter::new(x3, y3).mode(Mode::Lines).name("Normal");
     let trace4 = Scatter::new(x4, y4).mode(Mode::Lines).name("Uniform");
+    let trace5 = Scatter::new(x4, y4).mode(Mode::Lines).name("Triangular");
 
     // Render the plot.
     let mut plot = Plot::new();
@@ -45,5 +49,6 @@ fn main() {
     plot.add_trace(trace2);
     plot.add_trace(trace3);
     plot.add_trace(trace4);
+    plot.add_trace(trace5);
     plot.show();
 }
