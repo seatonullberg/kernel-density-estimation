@@ -41,7 +41,7 @@ fn main() {
     let trace2 = Scatter::new(x2, y2).mode(Mode::Lines).name("Epanechnikov");
     let trace3 = Scatter::new(x3, y3).mode(Mode::Lines).name("Normal");
     let trace4 = Scatter::new(x4, y4).mode(Mode::Lines).name("Uniform");
-    let trace5 = Scatter::new(x4, y4).mode(Mode::Lines).name("Triangular");
+    let trace5 = Scatter::new(x5, y5).mode(Mode::Lines).name("Triangular");
 
     // Render the plot.
     let mut plot = Plot::new();

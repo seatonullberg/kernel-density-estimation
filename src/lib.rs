@@ -32,5 +32,6 @@ pub mod prelude {
     pub use crate::kernel::epanechnikov::Epanechnikov;
     pub use crate::kernel::normal::Normal;
     pub use crate::kernel::uniform::Uniform;
+    pub use crate::kernel::triangular::Triangular;
     pub use crate::kernel::Kernel;
 }
