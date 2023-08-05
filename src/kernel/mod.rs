@@ -4,6 +4,12 @@ pub mod epanechnikov;
 pub mod normal;
 pub mod uniform;
 pub mod triangular;
+pub mod quartic;
+pub mod triweight;
+pub mod tricube;
+pub mod cosine;
+pub mod logistic;
+pub mod sigmoid;
 
 use crate::internal::Float;
 
