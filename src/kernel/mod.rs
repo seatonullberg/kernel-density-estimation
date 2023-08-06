@@ -10,6 +10,7 @@ pub mod tricube;
 pub mod cosine;
 pub mod logistic;
 pub mod sigmoid;
+pub mod silverman;
 
 use crate::internal::Float;
 
