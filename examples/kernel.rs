@@ -25,7 +25,7 @@ fn main() {
     let kde8 = KernelDensityEstimator::new(observations.clone(), &bandwidth, Cosine);
     let kde9 = KernelDensityEstimator::new(observations.clone(), &bandwidth, Logistic);
     let kde10 = KernelDensityEstimator::new(observations.clone(), &bandwidth, Sigmoid);
-    //let kde11 = KernelDensityEstimator::new(observations.clone(), &bandwidth, Silverman);
+    let kde11 = KernelDensityEstimator::new(observations.clone(), &bandwidth, SilvermanKernel);
 
     // Create a grid of points to evaluate each KDE on.
     let dataset: Vec<f32> = (0..101)
@@ -55,8 +55,8 @@ fn main() {
     let y10 = kde9.pdf(&dataset);
     let x11 = dataset.clone();
     let y11 = kde10.pdf(&dataset);
-    //let x12 = dataset.clone();
-    //let y12 = kde11.pdf(&dataset);
+    let x12 = dataset.clone();
+    let y12 = kde11.pdf(&dataset);
 
     // Plot the observations and each of the PDFs.
     let trace1 = Scatter::new(x1, y1).mode(Mode::Markers).name("Data");
@@ -70,7 +70,7 @@ fn main() {
     let trace9 = Scatter::new(x9, y9).mode(Mode::Lines).name("Cosine");
     let trace10 = Scatter::new(x10, y10).mode(Mode::Lines).name("Logistic");
     let trace11 = Scatter::new(x11, y11).mode(Mode::Lines).name("Sigmoid");
-    //let trace12 = Scatter::new(x11, y11).mode(Mode::Lines).name("Silverman");
+    let trace12 = Scatter::new(x12, y12).mode(Mode::Lines).name("Silverman");
 
     // Render the plot.
     let mut plot = Plot::new();
@@ -85,6 +85,6 @@ fn main() {
     plot.add_trace(trace9);
     plot.add_trace(trace10);
     plot.add_trace(trace11);
-    //plot.add_trace(trace12);
+    plot.add_trace(trace12);
     plot.show();
 }
