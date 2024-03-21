@@ -1,4 +1,4 @@
-///! Cosine kernel function.
+//! Cosine kernel function.
 
 use crate::internal::Float;
 use crate::kernel::Kernel;

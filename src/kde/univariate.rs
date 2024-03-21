@@ -54,7 +54,6 @@ where
         let rng = fastrand::Rng::new();
         let cdf = self.cdf(dataset);
         (0..n_samples)
-            .into_iter()
             .map(|_| {
                 #[cfg(feature = "f64")]
                 let rand = rng.f64();

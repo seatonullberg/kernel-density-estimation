@@ -28,7 +28,6 @@ pub(crate) fn interquartile_range(data: &[Float]) -> Float {
 
 pub(crate) fn cumsum(data: &[Float]) -> Vec<Float> {
     (0..data.len())
-        .into_iter()
         .map(|i| data[..i + 1].iter().sum())
         .collect()
 }
