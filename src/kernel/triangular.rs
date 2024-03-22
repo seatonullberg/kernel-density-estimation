@@ -1,19 +1,19 @@
 //! Triangular kernel function.
 
-use crate::internal::Float;
+use crate::float::KDEFloat;
 use crate::kernel::Kernel;
 
 /// Triangular kernel function.
 #[derive(Clone, Copy, Debug)]
 pub struct Triangular;
 
-impl Kernel for Triangular {
-    fn pdf(&self, x: Float) -> Float {
+impl<F: KDEFloat> Kernel<F> for Triangular {
+    fn pdf(&self, x: F) -> F {
         let abs_x = x.abs();
-        if abs_x <= 1.0 {
-            1.0 - abs_x
+        if abs_x <= F::one() {
+            F::one() - abs_x
         } else {
-            0.0
+            F::zero()
         }
     }
 }

@@ -1,6 +1,6 @@
 [package]
 name = "kernel-density-estimation"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2021"
 authors = ["Seaton Ullberg <seatonullberg@gmail.com>"]
 repository = "https://github.com/seatonullberg/kernel-density-estimation"
@@ -15,12 +15,10 @@ categories = [
     "mathematics",
 ]
 
-[features]
-f64 = []
-
 [dependencies]
 fastrand = "1.8"
 nalgebra = "0.31"
+num-traits = "0.2"
 
 [dev-dependencies]
 approx = "0.5"

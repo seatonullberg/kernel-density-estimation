@@ -1,18 +1,18 @@
 //! Uniform kernel function.
 
-use crate::internal::Float;
+use crate::float::{float, KDEFloat};
 use crate::kernel::Kernel;
 
 /// Uniform kernel function.
 #[derive(Clone, Copy, Debug)]
 pub struct Uniform;
 
-impl Kernel for Uniform {
-    fn pdf(&self, x: Float) -> Float {
-        if x.abs() > 1. {
-            0.0
+impl<F: KDEFloat> Kernel<F> for Uniform {
+    fn pdf(&self, x: F) -> F {
+        if x.abs() > F::one() {
+            F::zero()
         } else {
-            0.5
+            float!(0.5)
         }
     }
 }

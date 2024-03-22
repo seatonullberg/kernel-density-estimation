@@ -1,10 +1,11 @@
-use crate::internal::{Float, Sealed};
+use crate::float::KDEFloat;
+use crate::internal::Sealed;
 
-pub type Matrix2D = nalgebra::DMatrix<Float>;
+pub type Matrix2D<F> = nalgebra::DMatrix<F>;
 
-pub trait MultivariateKDE<B, K>: Sealed {
-    fn new<T: Into<Matrix2D>>(observations: T, bandwidth: B, kernel: K) -> Self;
-    fn pdf(&self, dataset: &Matrix2D) -> Vec<Float>;
-    fn cdf(&self, dataset: &Matrix2D) -> Vec<Float>;
-    fn sample(&self, dataset: &Matrix2D, n_samples: usize) -> Matrix2D;
+pub trait MultivariateKDE<B, K, F: KDEFloat>: Sealed {
+    fn new<T: Into<Matrix2D<F>>>(observations: T, bandwidth: B, kernel: K) -> Self;
+    fn pdf(&self, dataset: &Matrix2D<F>) -> Vec<F>;
+    fn cdf(&self, dataset: &Matrix2D<F>) -> Vec<F>;
+    fn sample(&self, dataset: &Matrix2D<F>, n_samples: usize) -> Matrix2D<F>;
 }

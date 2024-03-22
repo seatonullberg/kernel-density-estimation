@@ -1,19 +1,19 @@
 //! Triweight kernel function.
 
-use crate::internal::Float;
+use crate::float::{float, KDEFloat};
 use crate::kernel::Kernel;
 
 /// Triweight kernel function.
 #[derive(Clone, Copy, Debug)]
 pub struct Triweight;
 
-impl Kernel for Triweight {
-    fn pdf(&self, x: Float) -> Float {
+impl<F: KDEFloat> Kernel<F> for Triweight {
+    fn pdf(&self, x: F) -> F {
         let abs_x = x.abs();
-        if abs_x <= 1.0 {
-            (35.0 / 32.0) * (1.0 - x.powi(2)).powi(3)
+        if abs_x <= F::one() {
+            float!(35.0 / 32.0) * (F::one() - x.powi(2)).powi(3)
         } else {
-            0.0
+            F::zero()
         }
     }
 }

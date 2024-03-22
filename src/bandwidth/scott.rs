@@ -1,18 +1,21 @@
 //! Scott's rule for bandwidth selection.
 
 use crate::bandwidth::Bandwidth;
-use crate::internal::{variance, Float};
+use crate::float::{float, KDEFloat};
+use crate::internal::variance;
 
 /// Scott's rule for bandwidth selection.
 #[derive(Clone, Copy, Debug)]
 pub struct Scott;
 
-impl Bandwidth for Scott {
-    fn bandwidth(&self, data: &[Float]) -> Float {
-        let prefactor = 1.06;
-        let n = data.len() as Float;
+impl<F: KDEFloat> Bandwidth<F> for Scott {
+    fn bandwidth(&self, data: &[F]) -> F {
+        let prefactor = float!(1.06);
+        let n = float!(data.len());
         let var = variance(data);
-        (prefactor * Float::sqrt(var)) / n.powf(1. / 5.)
+        let numerator = prefactor * var.sqrt();
+        let denominator = float!(n.powf(float!(0.2)));
+        numerator / denominator
     }
 }
 

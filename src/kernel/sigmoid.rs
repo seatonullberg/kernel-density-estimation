@@ -1,20 +1,19 @@
 //! Sigmoid kernel function.
 
-use crate::internal::Float;
+use crate::float::{float, primitive, KDEFloat};
 use crate::kernel::Kernel;
 
-#[cfg(not(feature = "f64"))]
-use std::f32::consts::{E, FRAC_2_PI};
-#[cfg(feature = "f64")]
 use std::f64::consts::{E, FRAC_2_PI};
 
 /// Sigmoid kernel function.
 #[derive(Clone, Copy, Debug)]
 pub struct Sigmoid;
 
-impl Kernel for Sigmoid {
-    fn pdf(&self, x: Float) -> Float {
-        FRAC_2_PI / (E.powf(x) + E.powf(-x))
+impl<F: KDEFloat> Kernel<F> for Sigmoid {
+    fn pdf(&self, x: F) -> F {
+        let numerator = float!(FRAC_2_PI);
+        let denominator = float!(E.powf(primitive!(x)) + E.powf(primitive!(-x)));
+        numerator / denominator
     }
 }
 

@@ -1,34 +1,32 @@
-#[cfg(feature = "f64")]
-pub(crate) type Float = f64;
-
-#[cfg(not(feature = "f64"))]
-pub(crate) type Float = f32;
+use crate::float::{float, primitive, KDEFloat};
 
 pub trait Sealed {}
 
-pub(crate) fn variance(data: &[Float]) -> Float {
-    let n = data.len() as Float;
-    let mean = data.iter().sum::<Float>() / n;
-    let squares_sum = data.iter().map(|x| (x - mean).powi(2)).sum::<Float>();
-    squares_sum / (n - 1.0)
+pub(crate) fn variance<F: KDEFloat>(data: &[F]) -> F {
+    let n = float!(data.len());
+    let mean = data.iter().copied().sum::<F>() / n;
+    let squares_sum = data.iter().map(|&x| (x - mean).powi(2)).sum::<F>();
+    squares_sum / (n - F::one())
 }
 
-pub(crate) fn quantile(data: &[Float], tau: Float) -> Float {
-    assert!((0.0..=1.0).contains(&tau));
+pub(crate) fn quantile<F: KDEFloat>(data: &[F], tau: F) -> F {
+    assert!((0.0..=1.0).contains(&primitive!(tau)));
     let mut data = data.to_owned();
     data.sort_by(|a, b| a.partial_cmp(b).unwrap());
-    let n = data.len() as Float;
-    let index = Float::round(tau * (n + 1.0)) as usize;
+    let n = float!(data.len());
+    let index = F::round(tau * (n + F::one())).to_usize().unwrap();
     data[index - 1]
 }
 
-pub(crate) fn interquartile_range(data: &[Float]) -> Float {
-    quantile(data, 0.75) - quantile(data, 0.25)
+pub(crate) fn interquartile_range<F: KDEFloat>(data: &[F]) -> F {
+    let upper = float!(0.75);
+    let lower = float!(0.25);
+    quantile(data, upper) - quantile(data, lower)
 }
 
-pub(crate) fn cumsum(data: &[Float]) -> Vec<Float> {
+pub(crate) fn cumsum<F: KDEFloat>(data: &[F]) -> Vec<F> {
     (0..data.len())
-        .map(|i| data[..i + 1].iter().sum())
+        .map(|i| data[..i + 1].iter().copied().sum())
         .collect()
 }
 

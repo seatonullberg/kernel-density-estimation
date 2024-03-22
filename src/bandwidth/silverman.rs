@@ -1,25 +1,28 @@
 //! Silverman's rule for bandwidth selection.
 
 use crate::bandwidth::Bandwidth;
-use crate::internal::{interquartile_range, variance, Float};
+use crate::float::{float, KDEFloat};
+use crate::internal::{interquartile_range, variance};
 
 /// Silverman's rule for bandwidth selection.
 #[derive(Clone, Copy, Debug)]
 pub struct Silverman;
 
-impl Bandwidth for Silverman {
-    fn bandwidth(&self, data: &[Float]) -> Float {
+impl<F: KDEFloat> Bandwidth<F> for Silverman {
+    fn bandwidth(&self, data: &[F]) -> F {
         let var = variance(data);
-        let var_term = Float::sqrt(var);
+        let var_term = var.sqrt();
         let iqr = interquartile_range(data);
-        let iqr_term = iqr / 1.349;
-        let n = data.len() as Float;
-        let m: Float = if var_term < iqr_term {
+        let iqr_term = iqr / float!(1.349);
+        let n = float!(data.len());
+        let m = if var_term < iqr_term {
             var_term
         } else {
             iqr_term
         };
-        (0.9 * m) / n.powf(1.0 / 5.0)
+        let numerator = float!(0.9) * m;
+        let denominator = n.powf(float!(0.2));
+        numerator / denominator
     }
 }
 

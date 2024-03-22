@@ -1,22 +1,19 @@
 //! Logistic kernel function.
 
-use crate::internal::Float;
+use crate::float::{float, primitive, KDEFloat};
 use crate::kernel::Kernel;
 
-#[cfg(not(feature = "f64"))]
-use std::f32::consts::E;
-#[cfg(feature = "f64")]
 use std::f64::consts::E;
 
 /// Logistic kernel function.
 #[derive(Clone, Copy, Debug)]
 pub struct Logistic;
 
-impl Kernel for Logistic {
-    fn pdf(&self, x: Float) -> Float {
-        let exp_neg_x = E.powf(-x);
-        let exp_x = E.powf(x);
-        1.0 / (exp_neg_x + 2.0 + exp_x)
+impl<F: KDEFloat> Kernel<F> for Logistic {
+    fn pdf(&self, x: F) -> F {
+        let exp_neg_x = E.powf(primitive!(-x));
+        let exp_x = E.powf(primitive!(x));
+        float!(1.0 / (exp_neg_x + 2.0 + exp_x))
     }
 }
 

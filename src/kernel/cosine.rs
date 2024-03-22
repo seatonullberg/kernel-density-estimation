@@ -1,24 +1,22 @@
 //! Cosine kernel function.
 
-use crate::internal::Float;
+use crate::float::{float, primitive, KDEFloat};
 use crate::kernel::Kernel;
 
-#[cfg(not(feature = "f64"))]
-use std::f32::consts::{FRAC_PI_2, FRAC_PI_4};
-#[cfg(feature = "f64")]
 use std::f64::consts::{FRAC_PI_2, FRAC_PI_4};
 
 /// Cosine kernel function.
 #[derive(Clone, Copy, Debug)]
 pub struct Cosine;
 
-impl Kernel for Cosine {
-    fn pdf(&self, x: Float) -> Float {
+impl<F: KDEFloat> Kernel<F> for Cosine {
+    fn pdf(&self, x: F) -> F {
         let abs_x = x.abs();
-        if abs_x <= 1.0 {
-            FRAC_PI_4 * (FRAC_PI_2 * abs_x).cos()
+        if abs_x <= F::one() {
+            let res = FRAC_PI_4 * (FRAC_PI_2 * primitive!(abs_x)).cos();
+            float!(res)
         } else {
-            0.0
+            F::zero()
         }
     }
 }

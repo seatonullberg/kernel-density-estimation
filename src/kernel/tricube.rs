@@ -1,19 +1,19 @@
 //! Tricube kernel function.
 
-use crate::internal::Float;
+use crate::float::{float, KDEFloat};
 use crate::kernel::Kernel;
 
 /// Tricube kernel function.
 #[derive(Clone, Copy, Debug)]
 pub struct Tricube;
 
-impl Kernel for Tricube {
-    fn pdf(&self, x: Float) -> Float {
+impl<F: KDEFloat> Kernel<F> for Tricube {
+    fn pdf(&self, x: F) -> F {
         let abs_x = x.abs();
-        if abs_x <= 1.0 {
-            (70.0 / 81.0) * (1.0 - abs_x.powi(3)).powi(3)
+        if abs_x <= F::one() {
+            float!(70.0 / 81.0) * (F::one() - abs_x.powi(3)).powi(3)
         } else {
-            0.0
+            F::zero()
         }
     }
 }

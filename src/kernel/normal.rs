@@ -1,21 +1,18 @@
 //! Normal (Gaussian) kernel function.
 
-use crate::internal::Float;
+use crate::float::{float, KDEFloat};
 use crate::kernel::Kernel;
 
-#[cfg(not(feature = "f64"))]
-use std::f32::consts::PI;
-#[cfg(feature = "f64")]
 use std::f64::consts::PI;
 
 /// Normal (Gaussian) kernel function.
 #[derive(Clone, Copy, Debug)]
 pub struct Normal;
 
-impl Kernel for Normal {
-    fn pdf(&self, x: Float) -> Float {
-        let frac_sqrt2pi = 1.0 / Float::sqrt(2.0 * PI);
-        let exponent = (-1.0 / 2.0) * x.powi(2);
+impl<F: KDEFloat> Kernel<F> for Normal {
+    fn pdf(&self, x: F) -> F {
+        let frac_sqrt2pi = F::one() / F::sqrt(float!(2.0) * float!(PI));
+        let exponent = float!(-1.0 / 2.0) * x.powi(2);
         frac_sqrt2pi * exponent.exp()
     }
 }
