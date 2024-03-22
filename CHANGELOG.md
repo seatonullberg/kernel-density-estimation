@@ -6,6 +6,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added 
+
+- Many new kernel functions added by @ndcroos in #4 resolves #1.
+
+### Fixed
+
+- Fix potential API incompatibility with `f64` feature (#3).
+
+### Removed
+
+- `f64` feature.
+
 ## [0.1.0] - 2022-10-16
 Initial release with support for univariate distributions.
 
