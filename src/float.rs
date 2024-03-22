@@ -1,7 +1,14 @@
+//! Float constraints for generic math.
+
 use num_traits;
 
 // Custom Float implementation based on argmin crate:
 // https://docs.rs/argmin/latest/argmin/core/trait.ArgminFloat.html
+
+/// An alias for float types (f32, f64) which
+/// combines many commonly required traits.
+/// It is automatically implemented for all 
+/// types which fulfill the trait bounds.
 pub trait KDEFloat:
     'static
     + num_traits::Float
@@ -15,6 +22,8 @@ pub trait KDEFloat:
 {
 }
 
+/// `KDEFloat` is automatically implemented for all 
+/// types which fulfill the trait bounds.
 impl<T> KDEFloat for T where
     T: 'static
         + num_traits::Float
